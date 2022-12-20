@@ -1,6 +1,7 @@
 export type Language = {
   id: number;
   name: string;
+  code: string; // ISO_639-1, PL, EN etc. - we can consider using enum later
 }
 
 export type Tag = {
@@ -25,6 +26,7 @@ export type LanguageCreateData = {
 
 export type TagCreateData = {
   name: string;
+  code: string;
 }
 
 export type MessageCreateData = {
