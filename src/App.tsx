@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import { Box, CssBaseline, styled } from "@mui/material";
-import { MessagePage, LanguagePage, TagPage } from "./pages";
 import { Sidebar } from "./components";
 import { routes } from "./constants";
 
@@ -10,8 +9,6 @@ const AppContainer = styled(Box)(({ theme }) => ({
   background: theme.palette.background.default,
 }));
 
-const { MESSAGES, LANGUAGES, TAGS } = routes;
-
 const App = () => {
   return (
     <>
@@ -19,9 +16,9 @@ const App = () => {
       <AppContainer>
         <Sidebar />
         <Routes>
-          <Route path={MESSAGES.path} element={<MessagePage />} />
-          <Route path={LANGUAGES.path} element={<LanguagePage />} />
-          <Route path={TAGS.path} element={<TagPage />} />
+          {Object.values(routes).map((route) => (
+            <Route path={route.path} element={<route.element />} />
+          ))}
         </Routes>
       </AppContainer>
     </>
