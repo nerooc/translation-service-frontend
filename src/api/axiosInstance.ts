@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/';
+// Use same port as app is running on if you want to use MSW
+const API_URL = 'http://localhost:3000/';
 
 const instance = axios.create({baseURL: API_URL});
 
