@@ -1,5 +1,7 @@
+import { Page } from "components";
+
 type TagPageProps = {};
 
 export const TagPage = (props: TagPageProps) => {
-  return <div>Tags</div>;
+  return <Page title="Tags">Tags</Page>;
 };

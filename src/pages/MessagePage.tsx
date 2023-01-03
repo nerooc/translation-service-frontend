@@ -1,5 +1,7 @@
+import { Page } from "components";
+
 type MessagePageProps = {};
 
 export const MessagePage = (props: MessagePageProps) => {
-  return <div>Messages</div>;
+  return <Page title="Messages">Messages</Page>;
 };

@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { createLanguage, deleteLanguage, fetchLanguages } from "api/languages";
 import { Language, LanguageCreateData } from "api/types";
+import { Page } from "components";
 
 type LanguagePageProps = {};
 
@@ -28,8 +30,7 @@ export const LanguagePage = (props: LanguagePageProps) => {
   };
 
   return (
-    <div>
-      <h1>Languages</h1>
+    <Page title="Languages">
       <ul>
         {data?.map(language => (
           <li key={language.id}>
@@ -39,6 +40,7 @@ export const LanguagePage = (props: LanguagePageProps) => {
         ))}
       </ul>
       <button onClick={handleCreateLanguage}>Add new</button>
-    </div>
+    </Page>
   );
 };
+      
