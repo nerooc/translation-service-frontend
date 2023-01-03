@@ -5,22 +5,25 @@ import { Language, LanguageCreateData } from "api/types";
 type LanguagePageProps = {};
 
 export const LanguagePage = (props: LanguagePageProps) => {
+  // Just some random code to give an working example of Mock Service Worker, delete while implementing task for this page
   const queryClient = useQueryClient();
   const {data} = useQuery({queryKey: ['languages'], queryFn: fetchLanguages});
+
   const createMutation = useMutation<Language, unknown, LanguageCreateData>({
     mutationFn: languageData => createLanguage(languageData),
     onSuccess: () => queryClient.invalidateQueries(['languages']),
   });
+
   const deleteMutation = useMutation<Language, unknown, number>({
     mutationFn: id => deleteLanguage(id),
     onSuccess: () => queryClient.invalidateQueries(['languages']),
   });
 
-  const handleCreateLanguage = async () => {
+  const handleCreateLanguage = () => {
     createMutation.mutate({name: 'Polskaaa', code: 'PL'});
   };
 
-  const handleDeleteLanguage = async (id: number) => {
+  const handleDeleteLanguage = (id: number) => {
     deleteMutation.mutate(id);
   };
 
