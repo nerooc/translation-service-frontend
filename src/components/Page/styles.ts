@@ -1,4 +1,6 @@
-import { styled, Stack, Typography } from "@mui/material";
+import { styled } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 export const PageContainer = styled(Stack)(({ theme }) => ({
   width: '100%',

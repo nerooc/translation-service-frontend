@@ -1,4 +1,5 @@
-import { Pagination, Stack } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import Pagination from '@mui/material/Pagination';
 import AddIcon from '@mui/icons-material/Add';
 
 import { Page, SearchBar } from 'components';
