@@ -1,7 +1,7 @@
-import { Page } from "components";
+import { ResourcePage } from "components";
 
 type MessagePageProps = {};
 
 export const MessagePage = (props: MessagePageProps) => {
-  return <Page title="Messages">Messages</Page>;
+  return <ResourcePage title="Messages">Messages</ResourcePage>;
 };

@@ -1,3 +1,3 @@
 export * from "./Sidebar";
-export * from "./Page";
+export * from "./ResourcePage";
 export * from "./SearchBar";
