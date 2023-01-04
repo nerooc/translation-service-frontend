@@ -14,8 +14,8 @@ export const SearchBar = ({placeholder, onChange}: SearchBarProps) => {
       InputProps={{
         startAdornment: (
           <InputAdornment position='start'>
-          <SearchIcon />
-        </InputAdornment>
+            <SearchIcon />
+          </InputAdornment>
         ), 
         endAdornment: (
           <InputAdornment position='end'>

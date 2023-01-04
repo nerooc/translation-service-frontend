@@ -1,34 +1,40 @@
-import { Pagination, Stack, Typography, Button, Box } from '@mui/material';
+import { Pagination, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-import {SearchBar} from '../SearchBar';
+import { Page, SearchBar } from 'components';
 
 import type { ResourcePageProps } from './types';
+import { AddItemButton } from './styles';
 
 export const ResourcePage = ({
-  title, 
+  title,
+  searchBarPlaceholder,
+  numberOfPages,
   children, 
   onSearchPhraseChange, 
   onAddItemClick, 
   onPageChange,
 }: ResourcePageProps) => {
   return (
-    <Stack paddingTop={8} paddingX={6} paddingBottom={4} width="100%" gap={4} height="100vh">
-      <Stack flexDirection="row">
-        <Typography variant='h1' fontSize={32} fontWeight={700} flex={1}>{title}</Typography>
+    <Page
+      title={title}
+      headerRightElement={(
         <Stack flexDirection="row" gap={1}>
-          <SearchBar placeholder='search for tags...' onChange={onSearchPhraseChange}/>
-          <Button variant='contained' sx={{height: 40, width: 80}} onClick={onAddItemClick}>
+          <SearchBar placeholder={searchBarPlaceholder} onChange={onSearchPhraseChange}/>
+          <AddItemButton variant='contained' onClick={onAddItemClick}>
             <AddIcon />
-          </Button>
+          </AddItemButton>
         </Stack>
-      </Stack>
-      <Box flex={1}>
-        {children}
-      </Box>
-      <Stack justifyContent="center" alignItems="center">
-        <Pagination count={10} color="primary" onChange={(_, page) => onPageChange?.(page)} />
-      </Stack>
-    </Stack>
+      )}
+      footer={(
+        <Pagination 
+          count={numberOfPages}
+          color="primary"
+          onChange={(_, page) => onPageChange?.(page)}
+        />
+      )}
+    >
+      {children}
+    </Page>
   );
 };

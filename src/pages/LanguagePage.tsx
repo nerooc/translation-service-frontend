@@ -31,8 +31,10 @@ export const LanguagePage = (props: LanguagePageProps) => {
 
   return (
     <ResourcePage
-      title="Languages" 
-      onSearchPhraseChange={(v) => console.log({v})}
+      title="Languages"
+      searchBarPlaceholder="Search for language..."
+      numberOfPages={10}
+      onSearchPhraseChange={(v) => console.log('Search languages:', v)}
       onAddItemClick={handleCreateLanguage}
       onPageChange={(page) => console.log('Load languages page', page)}
     >
