@@ -22,11 +22,11 @@ export type Message = {
 
 export type LanguageCreateData = {
   name: string;
+  code: string;
 }
 
 export type TagCreateData = {
   name: string;
-  code: string;
 }
 
 export type MessageCreateData = {
