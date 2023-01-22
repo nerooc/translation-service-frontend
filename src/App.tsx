@@ -6,6 +6,7 @@ import { routes } from "./constants";
 const AppContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
+  height: "100%",
   background: theme.palette.background.default,
 }));
 

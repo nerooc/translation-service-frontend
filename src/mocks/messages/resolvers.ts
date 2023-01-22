@@ -33,7 +33,7 @@ const messages: Message[] = [
     language: {
       id: 2,
       name: "Polish",
-      code: "PL",
+      code: "pl",
     },
     tags: [
       {
@@ -53,7 +53,7 @@ const messages: Message[] = [
     language: {
       id: 2,
       name: "Polish",
-      code: "PL",
+      code: "pl",
     },
     tags: [
       {
@@ -74,7 +74,7 @@ const messages: Message[] = [
     language: {
       id: 2,
       name: "Polish",
-      code: "PL",
+      code: "pl",
     },
     tags: [
       {
@@ -102,27 +102,7 @@ const messages: Message[] = [
         name: "World",
       },
     ],
-  },
-  {
-    id: 4,
-    originalMessage: 1,
-    content: "Cześć świecie",
-    language: {
-      id: 2,
-      name: "Polish",
-      code: "PL",
-    },
-    tags: [
-      {
-        id: 1,
-        name: "Hello",
-      },
-      {
-        id: 2,
-        name: "World",
-      },
-    ],
-  },
+  }
 ];
 
 export const messageGetResolver: MessagesGetResolver = (_, res, ctx) => {
