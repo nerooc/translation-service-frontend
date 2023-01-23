@@ -1,16 +1,46 @@
-import type { Language, LanguageCreateData } from 'api/types';
-import type { LanguagesDeleteResolver, LanguagesGetResolver, LanguagesPostResolver } from './types';
+import type {Language, LanguageCreateData, LanguageUpdate} from 'api/types';
+import type {LanguagesDeleteResolver, LanguagesGetResolver, LanguagesPostResolver, LanguagesPutResolver} from './types';
 
 const languages: Language[] = [
   {
     id: 1,
-    name: 'Poland',
+    name: 'Polish',
     code: 'PL',
   },
   {
     id: 2,
-    name: 'United States',
+    name: 'United Stateish',
     code: 'US',
+  },
+  {
+    id: 3,
+    name: 'Romanian',
+    code: 'RO',
+  },
+  {
+    id: 4,
+    name: 'Swedish',
+    code: 'SE',
+  },
+  {
+    id: 5,
+    name: 'Dutch',
+    code: 'NL',
+  },
+  {
+    id: 6,
+    name: 'German',
+    code: 'DE',
+  },
+  {
+    id: 7,
+    name: 'French',
+    code: 'FR',
+  },
+  {
+    id: 8,
+    name: 'Spanish',
+    code: 'ES',
   },
 ];
 
@@ -37,6 +67,28 @@ export const languagePostResolver: LanguagesPostResolver = async (req, res, ctx)
   );
 }
 
+export const languagePutResolver: LanguagesPutResolver = async (req, res, ctx) => {
+  const updateLanguageData = await req.json<LanguageUpdate>();
+  const languageId = parseInt(req.params.id);
+
+  const foundLang = languages.find(lang => lang.id === languageId);
+
+  if (!foundLang) {
+    return res(
+      ctx.status(404),
+      ctx.json({error: `Language with id=${languageId} does not exist`}),
+    );
+  }
+
+  foundLang.code = updateLanguageData.code;
+  foundLang.name = updateLanguageData.name;
+
+  return res(
+    ctx.status(201),
+    ctx.json(updateLanguageData),
+  );
+}
+
 export const languageDeleteResolver: LanguagesDeleteResolver = async (req, res, ctx) => {
   const languageId = parseInt(req.params.id);
 
@@ -50,7 +102,7 @@ export const languageDeleteResolver: LanguagesDeleteResolver = async (req, res, 
   } else {
     return res(
       ctx.status(404),
-      ctx.json({ error: `Language with id=${languageId} does not exist` }),
+      ctx.json({error: `Language with id=${languageId} does not exist`}),
     );
   }
 }

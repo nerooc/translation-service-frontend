@@ -3,5 +3,5 @@ import Button from "@mui/material/Button";
 
 export const AddItemButton = styled(Button)(() => ({
   width: 80,
-  pheight: 40,
+  height: 40,
 }));
