@@ -19,8 +19,6 @@ export const Header = styled(Stack)(() => ({
 
 export const Content = styled(Stack)(({ theme }) => ({
   flex: 1,
-  flexDirection: "row",
-  flexWrap: "wrap",
   gap: theme.spacing(4),
 }));
 
