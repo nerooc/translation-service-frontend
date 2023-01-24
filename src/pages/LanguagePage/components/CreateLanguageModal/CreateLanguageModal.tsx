@@ -1,9 +1,10 @@
 import {useForm, Controller} from 'react-hook-form';
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import TextField from "@mui/material/TextField";
-import {Language, LanguageCreateData, LanguageUpdate} from "../../../../api/types";
+
 import {Modal} from "components";
-import {createLanguage} from "../../../../api/languages";
+import {Language, LanguageCreateData, LanguageUpdate} from "api/types";
+import {createLanguage} from "api/languages";
 
 type CreateLanguageModalProps = {
   isOpen: boolean;

@@ -5,13 +5,11 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 import {Language} from "api/types";
-import {deleteLanguage} from "../../../../api/languages";
+import {LanguageCardProps} from "./types";
+import {deleteLanguage} from "api/languages";
 import {EditLanguageModal} from "../EditLanguageModal";
 import {MainSection, StyledListItem, SettingsSection} from "./styles";
 
-type LanguageCardProps = {
-  languageData: Language
-};
 
 export const LanguageCard = ({languageData}: LanguageCardProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,11 +29,11 @@ export const LanguageCard = ({languageData}: LanguageCardProps) => {
       <MainSection>
         {languageData.name}
         <br/>
-        <text style={{fontWeight: "bold"}}>{languageData.code}</text>
+        <b>{languageData.code}</b>
       </MainSection>
       <SettingsSection>
-        <IconButton aria-label="delete">
-          <DeleteIcon fontSize="inherit" onClick={() => handleDeleteLanguage(languageData.id)}/>
+        <IconButton aria-label="delete" onClick={() => handleDeleteLanguage(languageData.id)}>
+          <DeleteIcon fontSize="inherit"/>
         </IconButton>
         <IconButton aria-label="edit" onClick={() => setIsOpen(true)}>
           <EditIcon fontSize="inherit"/>

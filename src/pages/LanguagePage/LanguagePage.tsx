@@ -1,18 +1,15 @@
-import {useQuery, useQueryClient} from "@tanstack/react-query";
+import {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 
-import { fetchLanguages} from "api/languages";
-
+import {fetchLanguages} from "api/languages";
 import {ResourcePage} from "components";
 import {LanguageCard, CreateLanguageModal} from "./components";
 import {StyledUnorderedList} from "./styles";
-import {useState} from "react";
 
-type LanguagePageProps = {};
 
-export const LanguagePage = (props: LanguagePageProps) => {
+export const LanguagePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {data} = useQuery({queryKey: ['languages'], queryFn: fetchLanguages});
-
 
   return (
     <ResourcePage
