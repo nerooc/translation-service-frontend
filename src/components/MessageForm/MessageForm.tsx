@@ -77,10 +77,9 @@ export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: Mess
             control={control}
             render={({ field }) => (
               <Autocomplete
-                freeSolo
                 defaultValue={null}
-                options={originalMessages.map(message => message.content)}
-                getOptionLabel={(option) => option}
+                options={originalMessages}
+                getOptionLabel={(option) => option.content}
                 onReset={() => field.onChange(null)}
                 renderInput={(params) => <TextField {...params} label="Original Message" />}
                 onChange={(_, value) => field.onChange(value)}

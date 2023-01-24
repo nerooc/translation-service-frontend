@@ -11,7 +11,7 @@ export type Tag = {
 
 export type Message = {
   id: number;
-  originalMessage: string | null;
+  originalMessage: Message | null;
   content: string;
   language: Language;
   tags: Tag[];
@@ -30,7 +30,7 @@ export type TagCreateData = {
 }
 
 export type MessageCreateData = {
-  originalMessage: string | null;
+  originalMessage: Message | null;
   content: string;
   language: Language;
   // We need to discuss how we want to pass information about tags, list of ids for known ones and list of string for new ones?

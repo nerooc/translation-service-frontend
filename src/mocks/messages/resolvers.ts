@@ -11,63 +11,72 @@ import type {
 import {languages} from 'mocks/languages/resolvers';
 import {tags} from 'mocks/tags/resolvers';
 
+const message1 = {
+  id: 1,
+  originalMessage: null,
+  content: "Hello world",
+  language: languages[0],
+  tags: tags.slice(0, 2),
+};
+const message2 = {
+  id: 2,
+  originalMessage: message1,
+  content: "Cześć świecie",
+  language: languages[1],
+  tags: tags.slice(0, 2),
+};
+const message3 = {
+  id: 3,
+  originalMessage: null,
+  content: "Home page",
+  language: languages[0],
+  tags: tags.slice(1, 2),
+};
+const message4 = {
+  id: 4,
+  originalMessage: null,
+  content: "Cat",
+  language: languages[0],
+  tags: tags,
+};
+const message5 = {
+  id: 5,
+  originalMessage: message4,
+  content: "Die Katze",
+  language: languages[2],
+  tags: tags,
+};
+const message6 = {
+  id: 6,
+  originalMessage: message3,
+  content: "Das Haus",
+  language: languages[2],
+  tags: tags.slice(1, 2),
+};
+const message7 = {
+  id: 7,
+  originalMessage: message3,
+  content: "Dom",
+  language: languages[1],
+  tags: tags.slice(1, 2),
+};
+const message8 = {
+  id: 8,
+  originalMessage: null,
+  content: "Healthy lifestyle",
+  language: languages[0],
+  tags: [],
+};
+
 const messages: Message[] = [
-  {
-    id: 1,
-    originalMessage: null,
-    content: "Hello world",
-    language: languages[0],
-    tags: tags.slice(0, 2),
-  },
-  {
-    id: 2,
-    originalMessage: "Hello world",
-    content: "Cześć świecie",
-    language: languages[1],
-    tags: tags.slice(0, 2),
-  },
-  {
-    id: 3,
-    originalMessage: null,
-    content: "Home page",
-    language: languages[0],
-    tags: tags.slice(1, 2),
-  },
-  {
-    id: 4,
-    originalMessage: null,
-    content: "Cat",
-    language: languages[0],
-    tags: tags,
-  },
-  {
-    id: 5,
-    originalMessage:  "Cat",
-    content: "Die Katze",
-    language: languages[2],
-    tags: tags,
-  },
-  {
-    id: 6,
-    originalMessage: "Home page",
-    content: "Das Haus",
-    language: languages[2],
-    tags: tags.slice(1, 2),
-  },
-  {
-    id: 7,
-    originalMessage: "Home page",
-    content: "Dom",
-    language: languages[1],
-    tags: tags.slice(1, 2),
-  },
-  {
-    id: 8,
-    originalMessage: null,
-    content: "Healthy lifestyle",
-    language: languages[0],
-    tags: [],
-  },
+  message1,
+  message2,
+  message3,
+  message4,
+  message5,
+  message6,
+  message7,
+  message8,
 ];
 
 export const messageGetResolver: MessagesGetResolver = (_, res, ctx) => {
@@ -106,8 +115,8 @@ export const messagePostResolver: MessagesPostResolver = async (
 ) => {
   const createdMessageData = await req.json<MessageCreateData>();
   const originalMessage = messages.find(
-    (message) => message.content === createdMessageData.originalMessage
-  )?.content || null
+    (message) => message.id === createdMessageData.originalMessage?.id
+  ) || null
 
   const createdMessage = {
     id: Date.now(),
