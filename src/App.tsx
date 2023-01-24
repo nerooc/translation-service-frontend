@@ -18,7 +18,7 @@ const App = () => {
         <Sidebar />
         <Routes>
           {Object.values(routes).map((route) => (
-            <Route path={route.path} element={<route.element />} />
+            <Route key={route.path} path={route.path} element={<route.element />} />
           ))}
         </Routes>
       </AppContainer>

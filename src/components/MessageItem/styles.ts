@@ -13,7 +13,9 @@ export const Cell = styled(TableCell)<{flex?: number, width?: number}>(({flex, w
   width,
 }));
 
-export const ButtonsContainer = styled(Stack)<{hovered: boolean}>(({ hovered }) => ({
+export const ButtonsContainer = styled(Stack, {
+  shouldForwardProp: prop => prop !== 'hovered',
+})<{hovered: boolean}>(({ hovered }) => ({
   flexDirection: 'row',
   width: 70,
   opacity: hovered ? 1 : 0,

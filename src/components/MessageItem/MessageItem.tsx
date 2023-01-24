@@ -50,11 +50,11 @@ export const MessageItem = ({
         </Cell>
         <Cell align="right">
           <ButtonsContainer hovered={isHovered}>
-            <IconButton size='small'>
-              <EditIcon onClick={onEdit} />
+            <IconButton size='small' onClick={onEdit}>
+              <EditIcon />
             </IconButton>
-            <IconButton size="small">
-              <DeleteIcon onClick={onDelete} />
+            <IconButton size="small" onClick={onDelete}>
+              <DeleteIcon />
             </IconButton>
           </ButtonsContainer>
         </Cell>

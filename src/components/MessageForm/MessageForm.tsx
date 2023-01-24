@@ -1,20 +1,19 @@
-import { Message } from 'api/types';
-import React, {useEffect, useMemo} from 'react';
+import {useEffect, useMemo} from 'react';
+
 import { useForm, Controller } from 'react-hook-form';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
-import { Modal } from 'components/Modal';
-import { ModalProps } from 'components/Modal/types';
 import { useQueries } from '@tanstack/react-query';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import { Modal } from 'components/Modal';
 import { fetchOriginalMessages } from 'api/messages';
 import { fetchLanguages } from 'api/languages';
 import { fetchTags } from 'api/tags';
-import CircularProgress from '@mui/material/CircularProgress';
-export type MessageFormProps = {
-  message?: Partial<Omit<Message, 'id'>>;
-  onSubmit(data: Omit<Message, 'id'>): void;
-} & Omit<ModalProps, 'onSave' | 'children'>
+import type { Message } from 'api/types';
+
+import type { MessageFormProps } from './types';
 
 const defaultFormValues: Omit<Message, 'id'> = {
   originalMessage: null,
@@ -97,6 +96,7 @@ export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: Mess
                 options={languages}
                 getOptionLabel={(option) => option.name}
                 onReset={() => field.onChange(null)}
+                isOptionEqualToValue={(option, value) => option.name === value.name}
                 renderInput={(params) => <TextField {...params} label="Language" />}
                 onChange={(_, v) => field.onChange(v)}
                 value={field.value}
@@ -112,6 +112,7 @@ export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: Mess
                 multiple
                 options={tags}
                 getOptionLabel={(option) => option.name}
+                isOptionEqualToValue={(option, value) => option.name === value.name}
                 renderInput={(params) => <TextField {...params} label="Tags" />}
                 onChange={(_, v) => field.onChange(v)}
                 value={field.value}
