@@ -13,7 +13,7 @@ export const options = {
     },
     text: {
       primary: "#000000",
-      secondary: "#828d9f",
+      secondary: "#e9f2ff",
     },
 
     contrastThreshold: 3,
