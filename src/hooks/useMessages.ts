@@ -8,7 +8,9 @@ export const useMessages = () => {
   const {data: messages} = useQuery({queryKey: ['messages'], queryFn: fetchMessages});
   // TODO: Add state for filters & return setter for them 
 
-  const refreshMessages = () => queryClient.invalidateQueries(["messages"]);
+  const refreshMessages = () => queryClient.invalidateQueries({
+    predicate: (query) => query.queryKey[0] === 'messages',
+  });
   
   const createMutation = useMutation<Message, unknown, MessageCreateData>({
     mutationFn: (messageData) => createMessage(messageData),

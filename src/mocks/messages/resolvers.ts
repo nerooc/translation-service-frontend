@@ -142,7 +142,8 @@ export const messageDeleteResolver: MessagesDeleteResolver = async (
 };
 
 export const messageOriginalGetResolver: MessageOriginalGetResolver = (_, res, ctx) => {
-  return res(ctx.status(200), ctx.json(messages));
+  const originalMessages = messages.filter(message => message.originalMessage === null);
+  return res(ctx.status(200), ctx.json(originalMessages));
 };
 
 

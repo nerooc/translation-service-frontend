@@ -33,7 +33,7 @@ export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: Mess
     {data: tags}
   ] = useQueries({
     queries: [
-      { queryKey: ['original-messages'], queryFn: fetchOriginalMessages },
+      { queryKey: ['messages', 'original'], queryFn: fetchOriginalMessages },
       { queryKey: ['languages'], queryFn: fetchLanguages },
       { queryKey: ['tags'], queryFn: fetchTags },
     ]
@@ -78,6 +78,7 @@ export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: Mess
             control={control}
             render={({ field }) => (
               <Autocomplete
+                freeSolo
                 defaultValue={null}
                 options={originalMessages.map(message => message.content)}
                 getOptionLabel={(option) => option}
