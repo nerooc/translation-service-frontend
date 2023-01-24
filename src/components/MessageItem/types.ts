@@ -1,4 +1,4 @@
-import { Language, MessageUpdate, Tag } from "api/types";
+import { Language, Tag } from "api/types";
 
 export type MessageItemProps = {
   id: number;
@@ -6,7 +6,7 @@ export type MessageItemProps = {
   content: string;
   language: Language;
   tags: Tag[];
-  onEdit(messageId: number, update: MessageUpdate): void;
+  onEdit(): void;
   onDelete(): void;
   onRemoveTag(messageId: number, tagId: number): void;
 };
