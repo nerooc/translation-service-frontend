@@ -1,42 +1,28 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createMessage, deleteMessage, fetchMessages } from "api/messages";
-import { Message, MessageCreateData } from "api/types";
-import { MessageCard, ResourcePage } from "components";
+import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 
-type MessagePageProps = {};
+import { ResourcePage, MessageItem } from "components";
+import { useMessages } from "hooks/useMessages";
 
-export const MessagePage = (props: MessagePageProps) => {
-  // Just some random code to give an working example of Mock Service Worker, delete while implementing task for this page
-  const queryClient = useQueryClient();
-  const { data } = useQuery({
-    queryKey: ["messages"],
-    queryFn: fetchMessages,
-  });
-
-  const createMutation = useMutation<Message, unknown, MessageCreateData>({
-    mutationFn: (messageData) => createMessage(messageData),
-    onSuccess: () => queryClient.invalidateQueries(["messages"]),
-  });
-
-  const deleteMutation = useMutation<Message, unknown, number>({
-    mutationFn: (id) => deleteMessage(id),
-    onSuccess: () => queryClient.invalidateQueries(["messages"]),
-  });
+export const MessagePage = () => {
+  const {
+    messages,
+    createMessage,
+    updateMessage,
+    deleteMessage,
+    removeMessageTag
+  } = useMessages();
 
   const handleCreateMessage = () => {
-    createMutation.mutate({
-      originalMessageId: 1,
+    createMessage({
+      originalMessage: null,
       content: "Cześć",
-      languageId: 1,
-      tags: [
-        { id: 1, name: "test" },
-        { id: 2, name: "test2" },
-      ],
-    });
-  };
-
-  const handleDeleteMessage = (id: number) => {
-    deleteMutation.mutate(id);
+      language: {
+        id: 1,
+        name: "English",
+        code: "EN",
+      },
+      tags: [],
+    }); 
   };
 
   return (
@@ -48,9 +34,22 @@ export const MessagePage = (props: MessagePageProps) => {
       onAddItemClick={handleCreateMessage}
       onPageChange={(page) => console.log("Load languages page", page)}
     >
-      {data?.map((message) => (
-        <MessageCard {...message} />
-      ))}
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableBody>
+          {messages?.map(({id, ...rest}) => (
+            <MessageItem
+              key={id}
+              id={id}
+              {...rest}
+              onDelete={() => deleteMessage(id)}
+              onEdit={updateMessage}
+              onRemoveTag={removeMessageTag}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     </ResourcePage>
   );
 };
