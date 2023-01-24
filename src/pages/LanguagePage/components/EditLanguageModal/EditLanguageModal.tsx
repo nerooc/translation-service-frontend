@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import {Language, LanguageUpdate} from "api/types";
 import {updateLanguage} from "api/languages";
 import {Modal} from "components";
+import {useEffect} from "react";
 
 type EditLanguageModalProps = {
   isOpen: boolean;
@@ -19,13 +20,16 @@ export const EditLanguageModal = ({isOpen, setIsOpen, languageData}: EditLanguag
     formState: {errors},
     reset
   } = useForm<LanguageUpdate>({defaultValues: {...languageData}});
+
+  useEffect(() => {
+    reset({...languageData});
+  }, [languageData, reset]);
+
   const onSubmit = handleSubmit((data) => handleUpdateLanguage({...data, id: languageData.id}));
-
   const queryClient = useQueryClient();
-
   const updateMutation = useMutation<Language, unknown, Language>({
     mutationFn: languageData => updateLanguage(languageData.id, {name: languageData.name, code: languageData.code}),
-    onSuccess: () => queryClient.invalidateQueries(['languages']).then(() => reset()),
+    onSuccess: () => queryClient.invalidateQueries(['languages']),
   });
 
   const handleUpdateLanguage = (languageData: Language) => {
