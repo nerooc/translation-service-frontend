@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,12 +7,13 @@ import Stack from '@mui/material/Stack';
 import Flag from 'react-world-flags';
 import Chip from '@mui/material/Chip';
 
-import type {MessageItemProps} from './types';
+import { languageCodeToCountryCode } from 'utils/codes';
+
+import type { MessageItemProps } from './types';
 import { ItemContainer, Cell, ButtonsContainer } from './styles';
 
 export const MessageItem = ({
   id,
-  originalMessage,
   content,
   language,
   tags,
@@ -30,7 +32,7 @@ export const MessageItem = ({
       >
         <Cell flex={5}>{content}</Cell>
         <Cell align="left" width={60}>
-          <Flag code={language.code} height={18} />
+          <Flag code={languageCodeToCountryCode(language.code)} height={18} />
         </Cell>
         <Cell align="left" width={60}>
           {language.code.toUpperCase()}
