@@ -1,51 +1,57 @@
 import { Message } from 'api/types';
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import { Modal } from 'components/Modal';
 import { ModalProps } from 'components/Modal/types';
-
+import { useQueries } from '@tanstack/react-query';
+import { fetchOriginalMessages } from 'api/messages';
+import { fetchLanguages } from 'api/languages';
+import { fetchTags } from 'api/tags';
+import CircularProgress from '@mui/material/CircularProgress';
 export type MessageFormProps = {
   message?: Partial<Omit<Message, 'id'>>;
   onSubmit(data: Omit<Message, 'id'>): void;
 } & Omit<ModalProps, 'onSave' | 'children'>
 
-const languages = [
-  {id: 1, code: 'EN', name: 'English'},
-  {id: 2, code: 'DE', name: 'German'},
-  {id: 3, code: 'PL', name: 'Polish'},
-]
-
-const tags = [
-  {id: 1, name: 'Tag1'},
-  {id: 2, name: 'Dupa'},
-  {id: 3, name: 'Kupa'},
-]
-
-
 const defaultFormValues: Omit<Message, 'id'> = {
   originalMessage: null,
   content: '',
-  language: languages[0],
+  // Just a workaround to get rid off typescript complaints
+  language: {id: 1, code: 'EN', name: 'English'}, 
   tags: [],
 }
 
-const originalMessages = [
-  {id: 1, originalMessage: null, content: 'Jebac', language: {id: 1, code: 'EN', name: 'English'}, tags: []},
-  {id: 2, originalMessage: null, content: 'Studia', language: {id: 1, code: 'EN', name: 'English'}, tags: []},
-  {id: 3, originalMessage: null, content: 'Bez gumy', language: {id: 1, code: 'EN', name: 'English'}, tags: []},
-]
+export const MessageForm = ({ title, isOpen, message, onSubmit, onCancel }: MessageFormProps) => {
+  const defaultValues = useMemo(() => ({ ...defaultFormValues, ...message}), [message]);
 
-export const MessageForm = ({title, isOpen, message, onSubmit, onCancel}: MessageFormProps) => {
-  const defaultValues = { ...defaultFormValues, ...message};
-  console.log({defaultValues});
-  const {handleSubmit, control, register, reset} = useForm({defaultValues});
+  const [
+    {data: originalMessages}, 
+    {data: languages}, 
+    {data: tags}
+  ] = useQueries({
+    queries: [
+      { queryKey: ['original-messages'], queryFn: fetchOriginalMessages },
+      { queryKey: ['languages'], queryFn: fetchLanguages },
+      { queryKey: ['tags'], queryFn: fetchTags },
+    ]
+  });
+
+  const { handleSubmit, control, register, reset, setValue } = useForm({defaultValues});
 
   useEffect(() => {
     reset(defaultValues);
-  }, [message, reset]);
+  }, [defaultValues, reset]);
+
+  useEffect(() => {
+    if (languages) {
+      const english = languages.find(language => language.name === 'English');
+      // We are sure that english will exist because backends add it on launch
+      setValue('language', english!);
+    }
+  }, [languages, setValue]);
 
   const handleCloseForm = () => {
     reset();
@@ -57,54 +63,62 @@ export const MessageForm = ({title, isOpen, message, onSubmit, onCancel}: Messag
     handleCloseForm();
   });
 
+  const isLoading = !originalMessages || !languages || !tags;
+
   return (
     <Modal title={title} isOpen={isOpen} onCancel={handleCloseForm} onSave={handleFormSaved}>
-      <Stack gap={2}>
-        <Controller
-          name="originalMessage"
-          control={control}
-          render={({ field }) => (
-            <Autocomplete
-              defaultValue={null}
-              options={originalMessages}
-              getOptionLabel={(option) => option.content}
-              renderInput={(params) => <TextField {...params} label="Original Message" />}
-              onChange={(_, v) => field.onChange(v?.id)}
-              value={originalMessages.find(m => m.id === field.value)}
-            />
-          )}
-        />
-        <Controller
-          name="language"
-          control={control}
-          render={({ field }) => (
-            <Autocomplete
-              options={languages}
-              getOptionLabel={(option) => option.name}
-              onReset={() => field.onChange(null)}
-              renderInput={(params) => <TextField {...params} label="Language" />}
-              onChange={(_, v) => field.onChange(v)}
-              value={field.value}
-            />
-          )}
-        />
-        <TextField label="Content" multiline rows={5} inputProps={{...register('content')}} />
-        <Controller
-          name="tags"
-          control={control}
-          render={({ field }) => (
-            <Autocomplete
-              multiple
-              options={tags}
-              getOptionLabel={(option) => option.name}
-              onReset={() => field.onChange(null)}
-              renderInput={(params) => <TextField {...params} label="Tags" />}
-              onChange={(_, v) => field.onChange(v)}
-              value={field.value}
-            />
-          )}
-        />
-      </Stack>
+      {isLoading ? (
+        <Stack justifyContent="center" alignItems="center">
+          <CircularProgress />
+        </Stack>
+      ): (
+        <Stack gap={2}>
+          <Controller
+            name="originalMessage"
+            control={control}
+            render={({ field }) => (
+              <Autocomplete
+                defaultValue={null}
+                options={originalMessages.map(message => message.content)}
+                getOptionLabel={(option) => option}
+                onReset={() => field.onChange(null)}
+                renderInput={(params) => <TextField {...params} label="Original Message" />}
+                onChange={(_, value) => field.onChange(value)}
+                value={field.value}
+              />
+            )}
+          />
+          <Controller
+            name="language"
+            control={control}
+            render={({ field }) => (
+              <Autocomplete
+                options={languages}
+                getOptionLabel={(option) => option.name}
+                onReset={() => field.onChange(null)}
+                renderInput={(params) => <TextField {...params} label="Language" />}
+                onChange={(_, v) => field.onChange(v)}
+                value={field.value}
+              />
+            )}
+          />
+          <TextField label="Content" multiline rows={5} inputProps={{...register('content')}} />
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                options={tags}
+                getOptionLabel={(option) => option.name}
+                renderInput={(params) => <TextField {...params} label="Tags" />}
+                onChange={(_, v) => field.onChange(v)}
+                value={field.value}
+              />
+            )}
+          />
+        </Stack>
+      )}
     </Modal>
   )
 }
