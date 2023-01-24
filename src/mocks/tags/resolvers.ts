@@ -1,7 +1,7 @@
 import type {Tag, TagCreateData, TagUpdate} from 'api/types';
 import type {TagsDeleteResolver, TagsGetResolver, TagsPostResolver, TagsPutResolver} from './types';
 
-const tags: Tag[] = [
+export const tags: Tag[] = [
   {
     id: 1,
     name: 'Formal',
@@ -9,7 +9,19 @@ const tags: Tag[] = [
   {
     id: 2,
     name: 'Informal',
-  }
+  },
+  {
+    id: 3,
+    name: 'Website',
+  },
+  {
+    id: 4,
+    name: 'Custom',
+  },
+  {
+    id: 5,
+    name: 'Sandbox',
+  },
 ];
 
 export const tagGetResolver: TagsGetResolver = (_, res, ctx) => {

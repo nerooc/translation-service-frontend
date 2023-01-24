@@ -6,6 +6,7 @@ import { routes } from "./constants";
 const AppContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
+  height: "100vh",
   background: theme.palette.background.default,
 }));
 
@@ -17,7 +18,7 @@ const App = () => {
         <Sidebar />
         <Routes>
           {Object.values(routes).map((route) => (
-            <Route path={route.path} element={<route.element />} />
+            <Route key={route.path} path={route.path} element={<route.element />} />
           ))}
         </Routes>
       </AppContainer>

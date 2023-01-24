@@ -1,36 +1,36 @@
 import type {Language, LanguageCreateData, LanguageUpdate} from 'api/types';
 import type {LanguagesDeleteResolver, LanguagesGetResolver, LanguagesPostResolver, LanguagesPutResolver} from './types';
 
-const languages: Language[] = [
+export const languages: Language[] = [
   {
     id: 1,
+    name: 'English',
+    code: 'EN',
+  },
+  {
+    id: 2,
     name: 'Polish',
     code: 'PL',
   },
   {
-    id: 2,
-    name: 'United Stateish',
-    code: 'US',
+    id: 3,
+    name: 'German',
+    code: 'DE',
   },
   {
-    id: 3,
+    id: 4,
     name: 'Romanian',
     code: 'RO',
   },
   {
-    id: 4,
+    id: 5,
     name: 'Swedish',
     code: 'SE',
   },
   {
-    id: 5,
+    id: 6,
     name: 'Dutch',
     code: 'NL',
-  },
-  {
-    id: 6,
-    name: 'German',
-    code: 'DE',
   },
   {
     id: 7,

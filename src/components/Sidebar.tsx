@@ -16,7 +16,7 @@ export const Sidebar = () => {
       <Logo />
       <Links>
         {Object.values(routes).map((route) => (
-          <IconButton component={Link} to={route.path}>
+          <IconButton key={route.path} component={Link} to={route.path}>
             <route.icon sx={iconStyles} />
           </IconButton>
         ))}
