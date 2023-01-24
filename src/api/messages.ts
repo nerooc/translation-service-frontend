@@ -12,6 +12,16 @@ export const fetchMessages = async (): Promise<Message[]> => {
   }
 }
 
+export const fetchOriginalMessages = async (): Promise<Message[]> => {
+  try {
+    const result = await axios.get<Message[]>('/messages/original');
+    return result.data;
+  } catch (error) {
+    // TODO: Add axios error parser
+    throw new Error('Failed to fetch original messages');
+  }
+}
+
 export const removeMessageTag = async (messageId: number, tagId: number): Promise<void> => {
   try {
     await axios.delete<Message[]>(`/messages/${messageId}/tags/${tagId}`);

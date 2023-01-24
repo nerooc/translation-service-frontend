@@ -13,6 +13,8 @@ export type MessagesDeleteResolver = Parameters<
   typeof rest.delete<{}, { id: string }>
 >[1];
 
+export type MessageOriginalGetResolver = Parameters<typeof rest.get>[1];
+
 export type MessageTagDeleteResolver = Parameters<
   typeof rest.delete<{}, { id: string; tagId: string }>
 >[1];

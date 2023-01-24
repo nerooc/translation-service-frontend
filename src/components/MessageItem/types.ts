@@ -2,7 +2,7 @@ import { Language, Tag } from "api/types";
 
 export type MessageItemProps = {
   id: number;
-  originalMessage: number | null;
+  originalMessage: string | null;
   content: string;
   language: Language;
   tags: Tag[];

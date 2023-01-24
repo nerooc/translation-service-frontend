@@ -4,111 +4,70 @@ import type {
   MessagesPutResolver,
   MessagesPostResolver,
   MessagesDeleteResolver,
+  MessageOriginalGetResolver,
   MessageTagDeleteResolver,
 } from "./types";
+
+import {languages} from 'mocks/languages/resolvers';
+import {tags} from 'mocks/tags/resolvers';
 
 const messages: Message[] = [
   {
     id: 1,
-    originalMessage: 1,
+    originalMessage: null,
     content: "Hello world",
-    language: {
-      id: 1,
-      name: "English",
-      code: "en",
-    },
-    tags: [
-      {
-        id: 1,
-        name: "Hello",
-      },
-      {
-        id: 2,
-        name: "World",
-      },
-    ],
+    language: languages[0],
+    tags: tags.slice(0, 2),
   },
   {
     id: 2,
-    originalMessage: 1,
+    originalMessage: "Hello world",
     content: "Cześć świecie",
-    language: {
-      id: 2,
-      name: "Polish",
-      code: "pl",
-    },
-    tags: [
-      {
-        id: 1,
-        name: "Hello",
-      },
-      {
-        id: 2,
-        name: "World",
-      },
-    ],
+    language: languages[1],
+    tags: tags.slice(0, 2),
   },
   {
     id: 3,
-    originalMessage: 1,
-    content: "Cześć świecie",
-    language: {
-      id: 2,
-      name: "Polish",
-      code: "pl",
-    },
-    tags: [
-      {
-        id: 1,
-        name: "Hello",
-      },
-      {
-        id: 2,
-        name: "World",
-      },
-      {
-        id: 3,
-        name: "Dupppa",
-      },
-    ],
+    originalMessage: null,
+    content: "Home page",
+    language: languages[0],
+    tags: tags.slice(1, 2),
   },
   {
     id: 4,
-    originalMessage: 1,
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut purus eu orci mollis vestibulum quis id quam. Mauris interdum suscipit nisl, ut tincidunt dui molestie quis. Duis vestibulum, erat id congue egestas, lacus purus condimentum justo",
-    language: {
-      id: 2,
-      name: "Polish",
-      code: "pl",
-    },
-    tags: [
-      {
-        id: 1,
-        name: "Hello",
-      },
-      {
-        id: 2,
-        name: "World",
-      },
-      {
-        id: 3,
-        name: "Hello",
-      },
-      {
-        id: 4,
-        name: "World",
-      },
-      {
-        id: 5,
-        name: "Hello",
-      },
-      {
-        id: 6,
-        name: "World",
-      },
-    ],
-  }
+    originalMessage: null,
+    content: "Cat",
+    language: languages[0],
+    tags: tags,
+  },
+  {
+    id: 5,
+    originalMessage:  "Cat",
+    content: "Die Katze",
+    language: languages[2],
+    tags: tags,
+  },
+  {
+    id: 6,
+    originalMessage: "Home page",
+    content: "Das Haus",
+    language: languages[2],
+    tags: tags.slice(1, 2),
+  },
+  {
+    id: 7,
+    originalMessage: "Home page",
+    content: "Dom",
+    language: languages[1],
+    tags: tags.slice(1, 2),
+  },
+  {
+    id: 8,
+    originalMessage: null,
+    content: "Healthy lifestyle",
+    language: languages[0],
+    tags: [],
+  },
 ];
 
 export const messageGetResolver: MessagesGetResolver = (_, res, ctx) => {
@@ -147,8 +106,8 @@ export const messagePostResolver: MessagesPostResolver = async (
 ) => {
   const createdMessageData = await req.json<MessageCreateData>();
   const originalMessage = messages.find(
-    (message) => message.id === createdMessageData.originalMessage
-  )?.id || null
+    (message) => message.content === createdMessageData.originalMessage
+  )?.content || null
 
   const createdMessage = {
     id: Date.now(),
@@ -181,6 +140,11 @@ export const messageDeleteResolver: MessagesDeleteResolver = async (
     );
   }
 };
+
+export const messageOriginalGetResolver: MessageOriginalGetResolver = (_, res, ctx) => {
+  return res(ctx.status(200), ctx.json(messages));
+};
+
 
 export const messageDeleteTagResolver: MessageTagDeleteResolver = async (
   req,
