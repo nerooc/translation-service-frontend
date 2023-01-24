@@ -6,10 +6,10 @@ import { theme } from "./styles";
 import App from "./App";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-if (process.env.NODE_ENV === 'development') {
-  const { worker } = require('./mocks/browser');
-  worker.start();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   const { worker } = require('./mocks/browser');
+//   worker.start();
+// }
 
 const queryClient = new QueryClient();
 
