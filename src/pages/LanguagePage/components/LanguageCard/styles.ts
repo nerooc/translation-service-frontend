@@ -12,10 +12,6 @@ export const StyledListItem = styled("li")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
-
-  "*": {
-    color: "white",
-  },
 }));
 
 export const MainSection = styled("section")(() => ({
@@ -28,5 +24,5 @@ export const SettingsSection = styled("section")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  "& *": { color: theme.palette.text.secondary },
+  "& *": { color: theme.palette.common.white },
 }));
