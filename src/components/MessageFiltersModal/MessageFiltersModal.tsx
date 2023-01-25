@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { useQueries } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import Button from "@mui/material/Button";
 import { Modal } from "components/Modal";
 import { fetchLanguages } from "api/languages";
 import { fetchTags } from "api/tags";
@@ -36,13 +36,20 @@ export const MessageFiltersModal = ({
   }, [defaultValues, reset]);
 
   const handleCloseForm = () => {
-    reset();
+    onCancel();
+  };
+
+  const handleFilterReset = () => {
+    onSubmit({
+      searchPhrase: "",
+      language: null,
+      tags: [],
+    });
     onCancel();
   };
 
   const handleFormSaved = handleSubmit((v: any) => {
     onSubmit(v);
-    handleCloseForm();
   });
 
   const isLoading = !languages || !tags;
@@ -101,6 +108,10 @@ export const MessageFiltersModal = ({
               />
             )}
           />
+
+          <Button variant="contained" onClick={handleFilterReset}>
+            Reset filters
+          </Button>
         </Stack>
       )}
     </Modal>
