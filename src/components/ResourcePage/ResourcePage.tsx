@@ -1,7 +1,6 @@
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import AddIcon from "@mui/icons-material/Add";
-
 import { Page, SearchBar } from "components";
 
 import type { ResourcePageProps } from "./types";
@@ -9,11 +8,13 @@ import { AddItemButton } from "./styles";
 
 export const ResourcePage = ({
   title,
+  filters,
   page,
   searchBarPlaceholder,
   numberOfPages,
   children,
   onSearchPhraseChange,
+  onFiltersModalOpen,
   onAddItemClick,
   onPageChange,
 }: ResourcePageProps) => {
@@ -24,7 +25,9 @@ export const ResourcePage = ({
         <Stack flexDirection="row" gap={1}>
           <SearchBar
             placeholder={searchBarPlaceholder}
+            value={filters?.searchPhrase}
             onChange={onSearchPhraseChange}
+            openFilters={onFiltersModalOpen}
           />
           <AddItemButton variant="contained" onClick={onAddItemClick}>
             <AddIcon />
