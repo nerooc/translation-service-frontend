@@ -79,7 +79,7 @@ Initially, the messages were intended to be displayed in a card format, but afte
 On this page we can define the languages we will later use in the messages. The handling is simple and intuitional.
 All data we have to pass is the name and code of the language e.g. 'English', 'EN'.
 
-| ![image](https://user-images.githubusercontent.com/31045802/214466693-4056fb74-ce0f-47dc-a077-923f72564164.png) |
+| ![image](https://user-images.githubusercontent.com/31045802/214540830-ba0fa328-a58e-4580-a8b7-440c243b79f9.png) |
 |-|
 
 ### Tags
@@ -87,7 +87,7 @@ All data we have to pass is the name and code of the language e.g. 'English', 'E
 We also handle different tags that can be used on messages for filtering purposes.
 The only information the application needs to create a tag is it's name.
 
-| ![image](https://user-images.githubusercontent.com/31045802/214466736-55a122aa-90c7-414f-899d-7aafa0894346.png) |
+| ![image](https://user-images.githubusercontent.com/31045802/214541096-fd2c66c7-0e14-4e71-a0b1-49173f9763b8.png) |
 |-|
 
 
