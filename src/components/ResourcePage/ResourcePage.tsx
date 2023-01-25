@@ -1,39 +1,44 @@
-import Stack from '@mui/material/Stack';
-import Pagination from '@mui/material/Pagination';
-import AddIcon from '@mui/icons-material/Add';
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import AddIcon from "@mui/icons-material/Add";
 
-import { Page, SearchBar } from 'components';
+import { Page, SearchBar } from "components";
 
-import type { ResourcePageProps } from './types';
-import { AddItemButton } from './styles';
+import type { ResourcePageProps } from "./types";
+import { AddItemButton } from "./styles";
 
 export const ResourcePage = ({
   title,
+  page,
   searchBarPlaceholder,
   numberOfPages,
-  children, 
-  onSearchPhraseChange, 
-  onAddItemClick, 
+  children,
+  onSearchPhraseChange,
+  onAddItemClick,
   onPageChange,
 }: ResourcePageProps) => {
   return (
     <Page
       title={title}
-      headerRightElement={(
+      headerRightElement={
         <Stack flexDirection="row" gap={1}>
-          <SearchBar placeholder={searchBarPlaceholder} onChange={onSearchPhraseChange}/>
-          <AddItemButton variant='contained' onClick={onAddItemClick}>
+          <SearchBar
+            placeholder={searchBarPlaceholder}
+            onChange={onSearchPhraseChange}
+          />
+          <AddItemButton variant="contained" onClick={onAddItemClick}>
             <AddIcon />
           </AddItemButton>
         </Stack>
-      )}
-      footer={(
-        <Pagination 
+      }
+      footer={
+        <Pagination
           count={numberOfPages}
+          page={page}
           color="primary"
           onChange={(_, page) => onPageChange?.(page)}
         />
-      )}
+      }
     >
       {children}
     </Page>
