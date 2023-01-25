@@ -50,6 +50,7 @@ export const MessagePage = () => {
             {_DATA?.currentData()?.map((message) => (
               <MessageItem
                 key={message.id}
+                isOriginal={!message.originalMessage}
                 {...message}
                 onDelete={() => deleteMessage(message.id)}
                 onEdit={() => {

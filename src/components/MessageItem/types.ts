@@ -6,6 +6,7 @@ export type MessageItemProps = {
   content: string;
   language: Language;
   tags: Tag[];
+  isOriginal?: boolean;
   onEdit(): void;
   onDelete(): void;
   onRemoveTag(messageId: number, tagId: number): void;
