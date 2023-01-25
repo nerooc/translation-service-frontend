@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Box, CssBaseline, styled } from "@mui/material";
 import { Sidebar } from "./components";
 import { routes } from "./constants";
@@ -17,8 +17,13 @@ const App = () => {
       <AppContainer>
         <Sidebar />
         <Routes>
+          <Route path="/" element={<Navigate replace to="/messages" />} />
           {Object.values(routes).map((route) => (
-            <Route key={route.path} path={route.path} element={<route.element />} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<route.element />}
+            />
           ))}
         </Routes>
       </AppContainer>
