@@ -5,14 +5,22 @@ import { fetchLanguages } from "api/languages";
 import { ResourcePage } from "components";
 import { LanguageCard, CreateLanguageModal } from "./components";
 import { StyledUnorderedList } from "./styles";
+import { usePagination } from "hooks";
 
 export const LanguagePage = () => {
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useQuery({
     queryKey: ["languages"],
     queryFn: fetchLanguages,
   });
+  const PER_PAGE = 20;
+
+  const handlePageChange = (p: any) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
 
   const filteredData = useMemo(
     () =>
@@ -21,18 +29,22 @@ export const LanguagePage = () => {
           language.name.toLowerCase().includes(searchPhrase.toLowerCase()) ||
           language.code.toLowerCase().includes(searchPhrase.toLowerCase())
         );
-      }),
+      }) || [],
     [data, searchPhrase]
   );
+
+  const count = Math.ceil(filteredData.length / PER_PAGE);
+  const _DATA = usePagination(filteredData, PER_PAGE);
 
   return (
     <ResourcePage
       title="Languages"
+      page={page}
       searchBarPlaceholder="Search for language..."
-      numberOfPages={10}
+      numberOfPages={count}
       onSearchPhraseChange={(v) => setSearchPhrase(v)}
       onAddItemClick={() => setIsOpen(true)}
-      onPageChange={(page) => console.log("Load languages page", page)}
+      onPageChange={handlePageChange}
     >
       <StyledUnorderedList>
         {filteredData?.map((language) => (
