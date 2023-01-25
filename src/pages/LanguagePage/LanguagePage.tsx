@@ -47,7 +47,7 @@ export const LanguagePage = () => {
       onPageChange={handlePageChange}
     >
       <StyledUnorderedList>
-        {filteredData?.map((language) => (
+        {_DATA?.currentData()?.map((language) => (
           <LanguageCard
             languageData={language}
             key={`LanguageCard_${language.id}`}
