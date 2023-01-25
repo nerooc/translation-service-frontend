@@ -28,5 +28,5 @@ export const SettingsSection = styled("section")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  "& *": { color: theme.palette.text.secondary },
+  "& *": { color: theme.palette.common.white },
 }));
