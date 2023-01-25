@@ -2,12 +2,14 @@ import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import AddIcon from "@mui/icons-material/Add";
 import { Page, SearchBar } from "components";
+
 import type { ResourcePageProps } from "./types";
 import { AddItemButton } from "./styles";
 
 export const ResourcePage = ({
   title,
   filters,
+  page,
   searchBarPlaceholder,
   numberOfPages,
   children,
@@ -35,6 +37,7 @@ export const ResourcePage = ({
       footer={
         <Pagination
           count={numberOfPages}
+          page={page}
           color="primary"
           onChange={(_, page) => onPageChange?.(page)}
         />
