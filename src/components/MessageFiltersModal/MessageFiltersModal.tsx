@@ -12,7 +12,7 @@ import { fetchTags } from "api/tags";
 
 import type { MessageFiltersProps } from "./types";
 
-export const MessageFilters = ({
+export const MessageFiltersModal = ({
   title,
   filters,
   isOpen,
