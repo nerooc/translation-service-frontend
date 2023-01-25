@@ -69,17 +69,15 @@ The application's interface consists of 3 main parts pages:
 This page offers a list of messages that have specific content, language and tags.
 Initially, the messages were intended to be displayed in a card format, but after carefully evaluating the number of actions required for one instance, it was determined that a list layout would be more suitable for this purpose.
 
-| ![image](https://user-images.githubusercontent.com/31045802/214466669-e18ac764-e2f1-40f3-830d-5dd995647ddc.png) |
+| ![image](https://user-images.githubusercontent.com/31045802/214540830-ba0fa328-a58e-4580-a8b7-440c243b79f9.png) |
 |-|
-
-
 
 ### Languages
 
 On this page we can define the languages we will later use in the messages. The handling is simple and intuitional.
 All data we have to pass is the name and code of the language e.g. 'English', 'EN'.
 
-| ![image](https://user-images.githubusercontent.com/31045802/214540830-ba0fa328-a58e-4580-a8b7-440c243b79f9.png) |
+| ![image](https://user-images.githubusercontent.com/31045802/214541466-f40823fb-129b-41b7-870b-d82ad4be877d.png) |
 |-|
 
 ### Tags
